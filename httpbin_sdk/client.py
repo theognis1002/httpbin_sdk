@@ -8,7 +8,8 @@ from urllib.parse import urlencode, urljoin
 import errors as err
 import requests
 
-from .internal_utils import _build_req_args, _build_unexpected_body_error_message
+from .internal_utils import (_build_req_args,
+                             _build_unexpected_body_error_message)
 from .response import Response
 
 
