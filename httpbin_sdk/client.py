@@ -8,8 +8,7 @@ from urllib.parse import urlencode, urljoin
 import errors as err
 import requests
 
-from .internal_utils import (_build_req_args,
-                             _build_unexpected_body_error_message)
+from .internal_utils import _build_req_args, _build_unexpected_body_error_message
 from .response import Response
 
 
@@ -150,15 +149,9 @@ class BaseClient:
             def convert_params(values: dict) -> dict:
                 if not values or not isinstance(values, dict):
                     return {}
-                return {
-                    k: ("(bytes)" if isinstance(v, bytes) else v)
-                    for k, v in values.items()
-                }
+                return {k: ("(bytes)" if isinstance(v, bytes) else v) for k, v in values.items()}
 
-            headers = {
-                k: "(redacted)" if k.lower() == "authorization" else v
-                for k, v in additional_headers.items()
-            }
+            headers = {k: "(redacted)" if k.lower() == "authorization" else v for k, v in additional_headers.items()}
             self._logger.debug(
                 f"Sending a request - url: {url}, "
                 f"query_params: {convert_params(query_params)}, "
@@ -197,9 +190,7 @@ class BaseClient:
                 message = _build_unexpected_body_error_message(response.get("body", ""))
                 raise err.HttpBinApiError(message, response)
 
-        all_params: Dict[str, Any] = (
-            copy.copy(body_params) if body_params is not None else {}
-        )
+        all_params: Dict[str, Any] = copy.copy(body_params) if body_params is not None else {}
         if query_params:
             all_params.update(query_params)
         request_args["params"] = all_params  # for backward-compatibility

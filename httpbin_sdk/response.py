@@ -19,11 +19,7 @@ class Response:
         Raises:
             Exception: The request to the Fraud Framework API failed.
         """
-        if (
-            self.status_code == 200
-            and self.data
-            and (isinstance(self.data, bytes) or self.data.get("ok", False))
-        ):
+        if self.status_code == 200 and self.data and (isinstance(self.data, bytes) or self.data.get("ok", False)):
             return self
         msg = f"The request to the HttpBin API failed. (url: {self.api_url})"
         raise Exception(message=msg, response=self)

@@ -139,9 +139,7 @@ def _build_req_args(
 
 
 def _build_unexpected_body_error_message(body: str) -> str:
-    body_for_logging = "".join(
-        [line.strip() for line in body.replace("\r", "\n").split("\n")]
-    )
+    body_for_logging = "".join([line.strip() for line in body.replace("\r", "\n").split("\n")])
     if len(body_for_logging) > 100:
         body_for_logging = body_for_logging[:100] + "..."
     message = f"Received a response in a non-JSON format: {body_for_logging}"
